@@ -1,5 +1,6 @@
 <template>
   <div>
+    <VitePwaManifest />
     <NuxtRouteAnnouncer />
     <!-- <NuxtWelcome /> -->
     <!-- <NuxtLayout>
@@ -7,7 +8,7 @@
     </NuxtLayout> -->
     <template>
   <div>
-    <h1>PWA Push Notification</h1>
+    <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
   </div>
