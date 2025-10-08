@@ -11,6 +11,12 @@
     <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
+
+    <div v-if="showInstallBanner" class="pwa-install-banner">
+      <p>Você pode adicionar este app à tela inicial!</p>
+      <button @click="promptInstall">Adicionar à tela inicial</button>
+    </div>
+
   </div>
 </template>
 
@@ -21,7 +27,14 @@
 
 <script setup lang="ts">
 import { useRuntimeConfig } from 'nuxt/app';
-import { onMounted } from 'vue';
+import { onMounted, ref, computed} from 'vue';
+import { usePwaPrompt } from '../composables/usePwaPrompt'
+
+const { isPwaInstallable, promptInstall } = usePwaPrompt()
+
+const showIosPrompt = ref(false)
+const showIosBrowserWarning = ref(false)
+const isStandalone = ref(false)
 
 function urlBase64ToUint8Array(base64String: string) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -32,6 +45,10 @@ function urlBase64ToUint8Array(base64String: string) {
   const rawData = atob(base64);
   return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
 }
+
+const showInstallBanner = computed(() => {
+  return isPwaInstallable.value && !isStandalone.value
+})
 
 const subscribeUser = async () => {
   if (!("Notification" in window) || !("serviceWorker" in navigator)) {
@@ -78,5 +95,25 @@ onMounted(() => {
     .then(() => console.log("✅ Service Worker registrado"))
     .catch(err => console.error("Erro ao registrar SW:", err));
 }
+
+console.log('App mounted ttest aaa new version  2')
+  if (typeof window !== 'undefined') {
+    const ua = window.navigator.userAgent.toLowerCase()
+    const isIosDevice = /iphone|ipad|ipod/.test(ua)
+    isStandalone.value = window.matchMedia('(display-mode: standalone)').matches || (window.navigator.standalone === true)
+
+    const isSafari = ua.includes('safari') && !ua.includes('crios') && !ua.includes('fxios')
+    const isChrome = ua.includes('crios')
+    const isFirefox = ua.includes('fxios')
+
+    if (isIosDevice && !isStandalone.value && isSafari) {
+      showIosPrompt.value = true
+    }
+
+    if (isIosDevice && (isChrome || isFirefox)) {
+      showIosBrowserWarning.value = true
+    }
+  }
+
 });
 </script>
