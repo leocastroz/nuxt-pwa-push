@@ -203,7 +203,7 @@
             <img v-else src="../assets/images/set1-icon.svg" />
           </div>
         </div>
-        <img src="../assets/images/drogariapopular.png" />
+        <!-- <img src="../assets/images/drogariapopular.png" /> -->
         <!-- Drogaria Popular Do Para -->
 
         <div class="perfil">
