@@ -20,7 +20,7 @@
 
 
     <div class="info-section">
-      <img src="../../assets/images/menina.png" alt="Menina" width="200" />
+      <!-- <img src="../../assets/images/menina.png" alt="Menina" width="200" /> -->
       <p>Como acumular pontos ?</p>
       <div class="buttons">
         <button @click="openVideo" class="conferir">
@@ -37,7 +37,7 @@
 
     <div v-if="videoinfo" class="video-container">
       <button @click="videoinfo = false" class="close-button">X</button>
-      <video src="../../public/videofarmacia.mp4" controls width="600" style="width: 80%;border-radius: 30px;"></video>
+      <!-- <video src="../../public/videofarmacia.mp4" controls width="600" style="width: 80%;border-radius: 30px;"></video> -->
     </div>
 
 
