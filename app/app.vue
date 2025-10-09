@@ -2,36 +2,36 @@
   <div>
     <VitePwaManifest />
     <NuxtRouteAnnouncer />
-    <!-- <NuxtWelcome /> -->
-    <!-- <NuxtLayout>
+    <NuxtLayout>
       <NuxtPage />
-    </NuxtLayout> -->
-    <template>
-  <div>
-    <h1>PWA Push Notification - Functioning</h1>
+    </NuxtLayout>
+
+    <!-- PWA Install Banner -->
+     <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
-
     <div v-if="showInstallBanner" class="pwa-install-banner">
       <p>Você pode adicionar este app à tela inicial!</p>
       <button @click="promptInstall">Adicionar à tela inicial</button>
+      <button @click="subscribeUser">Ativar Push</button>
+      <button @click="sendTest">Enviar Notificação</button>
     </div>
-
-    <RegisterUser />
-
-  </div>
-</template>
-
-
-
   </div>
 </template>
 
 <script setup lang="ts">
-import RegisterUser from '../components/RegisterUser.vue'
 import { useRuntimeConfig } from 'nuxt/app';
-import { onMounted, ref, computed} from 'vue';
-import { usePwaPrompt } from '../composables/usePwaPrompt'
+import { onMounted, ref, computed } from 'vue';
+import { usePwaPrompt } from './composables/usePwaPrompt'
+
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+    }
+  ]
+})
 
 const { isPwaInstallable, promptInstall } = usePwaPrompt()
 
@@ -59,19 +59,19 @@ const subscribeUser = async () => {
     return;
   }
 
-const permission = await Notification.requestPermission();
-if (permission !== "granted") {
-  alert("Permissão negada!");
-  return;
-}
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") {
+    alert("Permissão negada!");
+    return;
+  }
 
   const registration = await navigator.serviceWorker.ready;
   const subscription = await registration.pushManager.subscribe({
-  userVisibleOnly: true,
-  applicationServerKey: urlBase64ToUint8Array(
-    String(useRuntimeConfig().public.VAPID_PUBLIC_KEY)
-  )
-});
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(
+      String(useRuntimeConfig().public.VAPID_PUBLIC_KEY)
+    )
+  });
 
   console.log("📡 Subscription:", subscription);
 
@@ -93,17 +93,11 @@ const sendTest = async () => {
 
 onMounted(() => {
   console.log('App component mounted');
-  if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js")
-    .then(() => console.log("✅ Service Worker registrado"))
-    .catch(err => console.error("Erro ao registrar SW:", err));
-}
-
-console.log('App mounted ttest aaa new version  2')
+  
   if (typeof window !== 'undefined') {
     const ua = window.navigator.userAgent.toLowerCase()
     const isIosDevice = /iphone|ipad|ipod/.test(ua)
-    isStandalone.value = window.matchMedia('(display-mode: standalone)').matches || (window.navigator.standalone === true)
+    isStandalone.value = window.matchMedia('(display-mode: standalone)').matches || ((window.navigator as any).standalone === true)
 
     const isSafari = ua.includes('safari') && !ua.includes('crios') && !ua.includes('fxios')
     const isChrome = ua.includes('crios')
@@ -117,6 +111,88 @@ console.log('App mounted ttest aaa new version  2')
       showIosBrowserWarning.value = true
     }
   }
-
 });
 </script>
+
+<style scoped>
+.pwa-install-banner {
+  position: fixed;
+  bottom: 200px;
+  left: 20px;
+  right: 20px;
+  background: #4CAF50;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+}
+
+.pwa-install-banner p {
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.pwa-install-banner button {
+  background: white;
+  color: #4CAF50;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pwa-install-banner button:hover {
+  background: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .pwa-install-banner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+}
+</style>
+
+<style>
+.pwa-install-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #667eea;
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.pwa-install-banner p {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.pwa-install-banner button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.3s;
+}
+
+.pwa-install-banner button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+</style>

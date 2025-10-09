@@ -19,7 +19,9 @@
     "vue-router": "^4.5.1",
     "web-push": "^3.6.7",
     "uuid": "^11.1.0",
-    "maska": "^3.1.1"
+    "maska": "^3.1.1",
+    "nuxt-material-design-icons-iconfont": "^1.0.2",
+    "nuxt-toastify": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",

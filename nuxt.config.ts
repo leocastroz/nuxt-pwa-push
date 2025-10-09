@@ -1,12 +1,26 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
+  srcDir: 'app/',
   // devServer: {
   //   port: 3000,
   //   host: '0.0.0.0'
   // },
-  modules: ['@nuxtjs/supabase', '@nuxt/image', '@nuxt/ui', '@vite-pwa/nuxt'],
+  modules: [
+    '@nuxtjs/supabase',
+    '@nuxt/image',
+    '@nuxt/ui',
+    '@vite-pwa/nuxt',
+    [
+      'nuxt-toastify',
+      {
+        autoClose: 2000,
+        position: 'top-right',
+        theme: 'auto',
+      }
+    ]
+  ],
   runtimeConfig: {
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_KEY: process.env.SUPABASE_KEY,
@@ -27,7 +41,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      id: '/?source=pwa', // recomendado
+      id: '/?source=pwa',
       name: 'Meu PWA App',
       short_name: 'MeuApp',
       description: 'Aplicativo PWA criado com Nuxt.js e pronto para a Play Store!',
@@ -92,6 +106,9 @@ export default defineNuxtConfig({
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       // Usar service worker personalizado
       importScripts: ['/sw-custom.js'],
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -100,7 +117,7 @@ export default defineNuxtConfig({
             cacheName: 'google-fonts-cache',
             expiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              maxAgeSeconds: 60 * 60 * 24 * 365
             },
             cacheableResponse: {
               statuses: [0, 200]
@@ -114,7 +131,7 @@ export default defineNuxtConfig({
             cacheName: 'gstatic-fonts-cache',
             expiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              maxAgeSeconds: 60 * 60 * 24 * 365
             },
             cacheableResponse: {
               statuses: [0, 200]
@@ -128,7 +145,7 @@ export default defineNuxtConfig({
             cacheName: 'images',
             expiration: {
               maxEntries: 60,
-              maxAgeSeconds: 30 * 24 * 60 * 60 // <== 30 days
+              maxAgeSeconds: 30 * 24 * 60 * 60
             }
           }
         }
@@ -138,7 +155,8 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
+      suppressWarnings: true,
       type: "module"
     }
   }
