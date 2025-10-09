@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  // devServer: {
+  //   port: 3000,
+  //   host: '0.0.0.0'
+  // },
   modules: ['@nuxt/image', '@nuxt/ui', '@vite-pwa/nuxt'],
   runtimeConfig: {
     VAPID_PUBLIC_KEY: process.env.VAPID_PUBLIC_KEY,
