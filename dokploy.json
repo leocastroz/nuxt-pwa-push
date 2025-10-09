@@ -1,0 +1,12 @@
+{
+  "build": {
+    "command": "npm run build",
+    "output": ".output"
+  },
+  "deploy": {
+    "command": "node .output/server/index.mjs"
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
+} 
