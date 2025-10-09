@@ -1,16 +1,29 @@
 <script setup>
 import { vMaska } from "maska/vue"
+// import CryptoJS from 'crypto-js'
 import { ref } from 'vue'
+import { createClient } from "@supabase/supabase-js";
 
-// Usar o composable de autenticação
-const { login, loginWithCpf, isPWA } = useAuth()
 
-const loading = ref(false)
-const error = ref('')
-const cpf = ref('')
+const supaStore = useSupabaseClient();
+const SUPABASE_URL = supaStore.supabaseUrl;
+const SUPABASE_KEY = supaStore.supabaseKey;
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const loading = ref(false);
+const cpf = ref('');
+const secretKey = 'C3tech203010@'
+
+
+// const decryptPassword = (encryptedPassword) => {
+//   const bytes = CryptoJS.AES.decrypt(encryptedPassword, secretKey)
+//   return bytes.toString(CryptoJS.enc.Utf8)
+// }
+
+const cleanCpf = (cpf) => cpf.replace(/\D/g, '');
 
 // Estado para controlar qual formulário está ativo
-const isLoginForm = ref(true)
+const isLoginForm = ref(true);
+// const entrarNow = ref(true);
 
 // Estados para os campos do formulário
 const loginForm = ref({
@@ -21,67 +34,60 @@ const loginForm = ref({
 // Função para alternar entre os formulários
 const toggleForm = () => {
   isLoginForm.value = !isLoginForm.value
-  error.value = ''
 }
 
-// Login padrão com email e senha
+// Funções para submeter os formulários
 const handleLogin = async () => {
-  loading.value = true
-  error.value = ''
-  
+  loading.value = true;
   try {
-    const { data, error: loginError } = await login(
-      loginForm.value.email,
-      loginForm.value.password
-    )
-    
-    if (loginError) {
-      error.value = loginError.message || 'Erro ao fazer login'
-      return
-    }
-    
-    if (data?.user) {
-      console.log('✅ Login realizado com sucesso')
-      
-      // Mostrar mensagem especial para PWA
-      if (isPWA.value) {
-        console.log('📱 Sessão será mantida no PWA!')
-      }
-      
-      await navigateTo('/dashboard')
-    }
-  } catch (err) {
-    error.value = err.message || 'Erro inesperado ao fazer login'
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginForm.value.email,
+      password: loginForm.value.password,
+    });
+    if (error) throw error;
+    navigateTo('/dashboard');
+    console.log('Login successful:', data);
+  } catch (error) {
+    console.error('Login error:', error);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 
-// Login com CPF
 const loginCliente = async () => {
-  loading.value = true
-  error.value = ''
-  
   try {
-    const { data, error: loginError } = await loginWithCpf(cpf.value)
+    loading.value = true
+    const cleanedCpf = cleanCpf(cpf.value)
     
-    if (loginError) {
-      error.value = loginError.message || 'CPF não encontrado ou inválido'
-      return
-    }
-    
-    if (data?.user) {
-      console.log('✅ Login com CPF realizado com sucesso')
-      
-      // Mostrar mensagem especial para PWA
-      if (isPWA.value) {
-        console.log('📱 Sessão será mantida no PWA!')
-      }
-      
-      await navigateTo('/cliente')
-    }
-  } catch (err) {
-    error.value = err.message || 'Erro inesperado ao fazer login com CPF'
+    // 1. Busca usuário pelo CPF
+    const { data: userData, error: userError } = await supabase
+      .from('users_sorteio_qrcode')
+      .select('email, password')
+      .eq('cpf', cleanedCpf)
+      .single()
+
+    if (userError) throw new Error('Erro ao buscar usuário')
+    if (!userData) throw new Error('CPF não cadastrado')
+
+    const encryptedPassword = userData.password
+    const originalPassword = decryptPassword(encryptedPassword)
+    console.log('Senha original:', originalPassword)
+    // 2. Faz login automático com os dados do usuário
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: userData.email,
+      password: originalPassword
+    });
+
+    console.log('data aa', data)
+
+    if (error) throw error
+
+    navigateTo('/cliente');
+    // testToastify();
+
+
+  } catch (error) {
+    alert(error.message)
   } finally {
     loading.value = false
   }

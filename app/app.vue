@@ -6,10 +6,10 @@
       <NuxtPage />
     </NuxtLayout>
 
-    <!-- Session Status (visible only in development or for admins) -->
-    <SessionStatus v-if="showSessionStatus" position="top-right" />
-
     <!-- PWA Install Banner -->
+     <h1>PWA Push Notification - Functioning</h1>
+    <button @click="subscribeUser">Ativar Push</button>
+    <button @click="sendTest">Enviar Notificação</button>
     <div v-if="showInstallBanner" class="pwa-install-banner">
       <p>Você pode adicionar este app à tela inicial!</p>
       <button @click="promptInstall">Adicionar à tela inicial</button>
@@ -38,11 +38,6 @@ const { isPwaInstallable, promptInstall } = usePwaPrompt()
 const showIosPrompt = ref(false)
 const showIosBrowserWarning = ref(false)
 const isStandalone = ref(false)
-
-// Mostrar status de sessão em desenvolvimento ou PWA
-const showSessionStatus = computed(() => {
-  return process.dev || isStandalone.value
-})
 
 function urlBase64ToUint8Array(base64String: string) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);

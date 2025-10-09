@@ -19,13 +19,13 @@ export default defineNuxtPlugin(() => {
             badge: "/favicon.ico",
             tag: "push-notification",
             requireInteraction: false,
-            actions: [
-              {
-                action: "open",
-                title: "Abrir",
-                icon: "/favicon.ico"
-              }
-            ]
+            // actions: [
+            //   {
+            //     action: "open",
+            //     title: "Abrir",
+            //     icon: "/favicon.ico"
+            //   }
+            // ]
           });
         }
       });
