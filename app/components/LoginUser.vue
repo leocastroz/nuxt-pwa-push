@@ -181,7 +181,7 @@ function testToastify() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #bde764;
   padding: 20px;
 }
 
