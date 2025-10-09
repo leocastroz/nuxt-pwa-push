@@ -17,6 +17,8 @@
       <button @click="promptInstall">Adicionar à tela inicial</button>
     </div>
 
+    <RegisterUser />
+
   </div>
 </template>
 
@@ -26,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import RegisterUser from '../components/RegisterUser.vue'
 import { useRuntimeConfig } from 'nuxt/app';
 import { onMounted, ref, computed} from 'vue';
 import { usePwaPrompt } from '../composables/usePwaPrompt'

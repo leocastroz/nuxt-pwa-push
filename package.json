@@ -10,13 +10,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/supabase": "^1.4.6",
     "@nuxt/image": "^1.11.0",
     "@nuxt/ui": "^4.0.0",
     "nuxt": "^4.1.2",
     "typescript": "^5.9.2",
     "vue": "^3.5.21",
     "vue-router": "^4.5.1",
-    "web-push": "^3.6.7"
+    "web-push": "^3.6.7",
+    "uuid": "^11.1.0",
+    "maska": "^3.1.1"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",

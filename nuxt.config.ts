@@ -6,8 +6,10 @@ export default defineNuxtConfig({
   //   port: 3000,
   //   host: '0.0.0.0'
   // },
-  modules: ['@nuxt/image', '@nuxt/ui', '@vite-pwa/nuxt'],
+  modules: ['@nuxtjs/supabase', '@nuxt/image', '@nuxt/ui', '@vite-pwa/nuxt'],
   runtimeConfig: {
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY,
     VAPID_PUBLIC_KEY: process.env.VAPID_PUBLIC_KEY,
     VAPID_PRIVATE_KEY: process.env.VAPID_PRIVATE_KEY,
     public: {
@@ -18,6 +20,9 @@ export default defineNuxtConfig({
     externals: {
       inline: ["web-push"]
     }
+  },
+  supabase: {
+    redirect: false
   },
   pwa: {
     registerType: 'autoUpdate',
