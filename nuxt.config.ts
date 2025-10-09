@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: false },
-  srcDir: 'app/',
+  devtools: { enabled: true },
   // devServer: {
   //   port: 3000,
   //   host: '0.0.0.0'
@@ -106,9 +105,6 @@ export default defineNuxtConfig({
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       // Usar service worker personalizado
       importScripts: ['/sw-custom.js'],
-      cleanupOutdatedCaches: true,
-      skipWaiting: true,
-      clientsClaim: true,
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -117,7 +113,7 @@ export default defineNuxtConfig({
             cacheName: 'google-fonts-cache',
             expiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 365
+              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
             },
             cacheableResponse: {
               statuses: [0, 200]
@@ -131,7 +127,7 @@ export default defineNuxtConfig({
             cacheName: 'gstatic-fonts-cache',
             expiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 365
+              maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
             },
             cacheableResponse: {
               statuses: [0, 200]
@@ -145,7 +141,7 @@ export default defineNuxtConfig({
             cacheName: 'images',
             expiration: {
               maxEntries: 60,
-              maxAgeSeconds: 30 * 24 * 60 * 60
+              maxAgeSeconds: 30 * 24 * 60 * 60 // <== 30 days
             }
           }
         }
@@ -155,8 +151,7 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
     devOptions: {
-      enabled: false,
-      suppressWarnings: true,
+      enabled: true,
       type: "module"
     }
   }
