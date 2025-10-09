@@ -6,6 +6,13 @@
       <NuxtPage />
     </NuxtLayout>
 
+    <!-- Banner de Atualização PWA -->
+    <PwaUpdateBanner 
+      position="bottom"
+      updateTitle="🎉 Nova versão disponível!"
+      updateMessage="Atualize agora para obter as últimas melhorias e correções."
+    />
+
     <!-- PWA Install Banner -->
      <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
