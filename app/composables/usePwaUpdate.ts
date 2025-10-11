@@ -1,52 +1,65 @@
-import { ref, onMounted } from 'vue'
-import { useRegisterSW } from 'virtual:pwa-register/vue'
+import { ref, onMounted, watchEffect } from 'vue'
 
 export const usePwaUpdate = () => {
+  // Estados expostos
   const needRefresh = ref(false)
   const offlineReady = ref(false)
   const updateAvailable = ref(false)
 
-  const {
-    needRefresh: _needRefresh,
-    offlineReady: _offlineReady,
-    updateServiceWorker,
-  } = useRegisterSW({
-    immediate: true,
-    onRegisteredSW(swUrl, registration) {
-      console.log('✅ Service Worker registrado:', swUrl)
-      
-      // Verifica por atualizações a cada 60 segundos
-      if (registration) {
-        setInterval(async () => {
-          console.log('🔍 Verificando atualizações...')
-          try {
-            await registration.update()
-          } catch (error) {
-            console.error('Erro ao verificar atualização:', error)
-          }
-        }, 60 * 1000) // 60 segundos
+  // Função de atualização (no-op no SSR)
+  let _updateServiceWorker: (reloadPage?: boolean) => Promise<void> = async () => {}
+
+  // Inicializa somente no client para evitar acessar navigator no SSR
+  onMounted(async () => {
+    if (import.meta.client) {
+      try {
+        const { useRegisterSW } = await import('virtual:pwa-register/vue')
+
+        const {
+          needRefresh: _needRefresh,
+          offlineReady: _offlineReady,
+          updateServiceWorker,
+        } = useRegisterSW({
+          immediate: true,
+          onRegisteredSW(swUrl, registration) {
+            console.log('✅ Service Worker registrado:', swUrl)
+
+            // Verifica por atualizações a cada 60 segundos
+            if (registration) {
+              setInterval(async () => {
+                console.log('🔍 Verificando atualizações...')
+                try {
+                  await registration.update()
+                } catch (error) {
+                  console.error('Erro ao verificar atualização:', error)
+                }
+              }, 60 * 1000) // 60 segundos
+            }
+          },
+          onRegisterError(error) {
+            console.error('❌ Erro ao registrar Service Worker:', error)
+          },
+        })
+
+        // Guarda função para uso externo
+        _updateServiceWorker = updateServiceWorker
+
+        // Sincroniza refs reativos
+        watchEffect(() => {
+          needRefresh.value = _needRefresh.value
+          offlineReady.value = _offlineReady.value
+          updateAvailable.value = _needRefresh.value || _offlineReady.value
+        })
+      } catch (err) {
+        console.error('❌ Falha ao inicializar PWA updates:', err)
       }
-    },
-    onRegisterError(error) {
-      console.error('❌ Erro ao registrar Service Worker:', error)
-    },
-  })
-
-  // Sincroniza os refs
-  const syncRefs = () => {
-    needRefresh.value = _needRefresh.value
-    offlineReady.value = _offlineReady.value
-    updateAvailable.value = _needRefresh.value || _offlineReady.value
-  }
-
-  onMounted(() => {
-    syncRefs()
+    }
   })
 
   // Atualiza o app (força reload com novo SW)
   const updateApp = async () => {
     console.log('🔄 Atualizando aplicativo...')
-    await updateServiceWorker(true)
+    await _updateServiceWorker(true)
   }
 
   // Fecha o banner de atualização
@@ -56,9 +69,9 @@ export const usePwaUpdate = () => {
     updateAvailable.value = false
   }
 
-  // Verifica manualmente por atualizações
+  // Verifica manualmente por atualizações (somente client)
   const checkForUpdates = async () => {
-    if ('serviceWorker' in navigator) {
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
       const registration = await navigator.serviceWorker.getRegistration()
       if (registration) {
         console.log('🔍 Verificando atualizações manualmente...')

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome to the Nuxt 3 PWA with Supabase</h1>
+    <h1>Welcome to the Nuxt 3 PWA with Supabase - 123123</h1>
     <LoginUser />
   </div>
 </template>

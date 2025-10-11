@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { usePwaUpdate } from '~/composables/usePwaUpdate'
 
 const props = defineProps({
@@ -150,6 +150,13 @@ const handleCheckUpdates = async () => {
 
 // Verifica informações do Service Worker
 const checkServiceWorkerInfo = async () => {
+  // Evita acesso no SSR
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    swStatus.value = '❌ Não suportado'
+    cacheStatus.value = '❌ Não suportado'
+    return
+  }
+
   if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.getRegistration()
@@ -188,8 +195,8 @@ const checkServiceWorkerInfo = async () => {
 
   // Detecta modo PWA
   isPWAMode.value = 
-    window.matchMedia('(display-mode: standalone)').matches ||
-    (window.navigator as any).standalone ||
+    (typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches) ||
+    ((window.navigator as any).standalone) ||
     document.referrer.includes('android-app://')
 }
 
@@ -197,9 +204,11 @@ onMounted(() => {
   checkServiceWorkerInfo()
   
   // Atualiza info a cada 30 segundos
-  setInterval(() => {
+  const id = setInterval(() => {
     checkServiceWorkerInfo()
   }, 30000)
+
+  onBeforeUnmount(() => clearInterval(id))
 })
 </script>
 

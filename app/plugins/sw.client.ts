@@ -1,7 +1,7 @@
 import { defineNuxtPlugin } from "nuxt/app";
 
 export default defineNuxtPlugin(() => {
-  if ("serviceWorker" in navigator) {
+  if (typeof navigator !== 'undefined' && "serviceWorker" in navigator) {
     // O Workbox será registrado automaticamente pelo @vite-pwa/nuxt
     navigator.serviceWorker.ready.then((registration) => {
       console.log("✅ Service Worker do Workbox pronto!");

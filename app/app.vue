@@ -61,6 +61,7 @@ const showInstallBanner = computed(() => {
 })
 
 const subscribeUser = async () => {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return
   if (!("Notification" in window) || !("serviceWorker" in navigator)) {
     alert("Navegador não suporta notificações.");
     return;
@@ -104,7 +105,7 @@ onMounted(() => {
   if (typeof window !== 'undefined') {
     const ua = window.navigator.userAgent.toLowerCase()
     const isIosDevice = /iphone|ipad|ipod/.test(ua)
-    isStandalone.value = window.matchMedia('(display-mode: standalone)').matches || ((window.navigator as any).standalone === true)
+  isStandalone.value = window.matchMedia('(display-mode: standalone)').matches || ((window.navigator as any).standalone === true)
 
     const isSafari = ua.includes('safari') && !ua.includes('crios') && !ua.includes('fxios')
     const isChrome = ua.includes('crios')
