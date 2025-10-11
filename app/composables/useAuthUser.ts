@@ -26,6 +26,14 @@ export const useAuthUser = () => {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('sb-api-auth-token')
       }
+      // Toast unificado no logout
+      try {
+        useToastify('Logout realizado com sucesso!', {
+          autoClose: 2000,
+          position: ToastifyOption.POSITION.TOP_RIGHT,
+          type: 'success',
+        })
+      } catch {}
       await navigateTo('/login')
     }
   }

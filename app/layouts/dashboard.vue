@@ -104,6 +104,7 @@
         <!-- Drogaria Popular Do Para -->
 
         <div class="nav-sec-icons">
+          <UserBadge />
           <NuxtLink to="/notificacoes-adm" class="notications">
             <p>12</p>
             <span class="material-icons">notifications</span>
@@ -137,6 +138,7 @@
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import LogoutButton from '~/components/LogoutButton.vue'
+import UserBadge from '~/components/UserBadge.vue'
 
 const supabase = useSupabaseClient()
 

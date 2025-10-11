@@ -215,16 +215,7 @@
         <!-- Drogaria Popular Do Para -->
 
         <div class="perfil">
-          <p style="color: white;">Pontos {{ cliente.user_metadata.pontos }}</p>&nbsp; &nbsp;
-          <NuxtLink to="/perfilusuario">
-            Perfil {{ parsedData }}
-            <img
-              src="https://www.if.ufrgs.br/if/wp-content/uploads/2018/04/default-profile.png"
-              alt="Drogaria Popular do Pará"
-              class="logo"
-              width="40"
-            />
-          </NuxtLink>
+          <UserBadge />
         </div>
       </div>
       <slot />
@@ -240,6 +231,7 @@
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import LogoutButton from '~/components/LogoutButton.vue'
+import UserBadge from '~/components/UserBadge.vue'
 
 const supabase = useSupabaseClient();
 
