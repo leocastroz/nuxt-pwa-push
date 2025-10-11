@@ -40,7 +40,8 @@ const handleLogin = async () => {
       password: loginForm.value.password,
     });
     if (error) throw error;
-    navigateTo('/dashboard');
+    const role = data.user?.user_metadata?.role
+    navigateTo(role === 'admin' ? '/dashboard' : '/cliente');
     console.log('Login successful:', data);
   } catch (error) {
     console.error('Login error:', error);
@@ -75,9 +76,9 @@ const loginCliente = async () => {
 
     console.log('data aa', data)
 
-    if (error) throw error
-
-    navigateTo('/cliente');
+  if (error) throw error
+  const role = data.user?.user_metadata?.role
+  navigateTo(role === 'admin' ? '/dashboard' : '/cliente');
     // testToastify();
 
 

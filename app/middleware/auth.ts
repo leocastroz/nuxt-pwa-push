@@ -5,60 +5,61 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
 
-  // Primeiro, se o Nuxt já tem user, seguimos
-  if (user.value) return
+  const routeByRole = (role?: string) => (role === 'admin' ? '/dashboard' : '/cliente')
 
-  // Sem user reativo? tenta recuperar sessão persistida do Supabase
-  try {
-    const { data } = await supabase.auth.getSession()
-    if (data.session) {
-      // Nuxt/supabase plugin atualizará useSupabaseUser automaticamente
-      return
-    }
-  } catch (e) {
-    console.warn('auth middleware: getSession falhou', e)
-  }
+  let isAuthenticated = false
+  let role: string | undefined
 
-  // Fallback: checa espelho no localStorage (mantido por plugin)
-  if (typeof window !== 'undefined') {
-    const raw = localStorage.getItem('sb-api-auth-token')
+  // 1) Tenta via estado reativo do Nuxt/Supabase
+  if (user.value) {
+    isAuthenticated = true
+    role = (user.value.user_metadata as any)?.role
+  } else {
+    // 2) Tenta hidratar sessão do Supabase
     try {
-      if (raw) {
-        const parsed = JSON.parse(raw)
-        if (parsed?.access_token && parsed?.user) {
-          // Opcional: poderíamos setar algo no state aqui.
-          return
-        }
+      const { data } = await supabase.auth.getSession()
+      if (data.session) {
+        isAuthenticated = true
+        role = (data.session.user?.user_metadata as any)?.role
       }
     } catch (e) {
-      localStorage.removeItem('sb-api-auth-token')
+      console.warn('auth middleware: getSession falhou', e)
+    }
+
+    // 3) Fallback: espelho no localStorage
+    if (!isAuthenticated && typeof window !== 'undefined') {
+      const raw = localStorage.getItem('sb-api-auth-token')
+      try {
+        if (raw) {
+          const parsed = JSON.parse(raw)
+          if (parsed?.access_token && parsed?.user) {
+            isAuthenticated = true
+            role = parsed.user?.user_metadata?.role
+          }
+        }
+      } catch (e) {
+        localStorage.removeItem('sb-api-auth-token')
+      }
     }
   }
 
-  // Sem sessão: redireciona para login (evita loop na própria página de login)
-  if (to.path !== '/login') {
-    return navigateTo('/login')
+  // 4) Sem sessão: redireciona para login (evita loop na própria página de login)
+  if (!isAuthenticated) {
+    if (to.path !== '/login') return navigateTo('/login')
+    return
+  }
+
+  // 5) Com sessão: se estiver em '/' ou '/login', envia para rota por role
+  if (to.path === '/' || to.path === '/login') {
+    return navigateTo(routeByRole(role))
+  }
+
+  // 6) (Opcional) Enforce de seção por role
+  // Admin não deve ficar nas rotas do cliente, e vice-versa — ajuste conforme necessidade
+  if (to.path.startsWith('/dashboard') && role !== 'admin') {
+    return navigateTo('/cliente')
+  }
+  if (to.path.startsWith('/cliente') && role === 'admin') {
+    return navigateTo('/dashboard')
   }
 })
-
-
-// export default defineNuxtRouteMiddleware((to) => {
-//   if (typeof window !== 'undefined') {
-//     console.log("Running auth middleware on client side");
-//     const authData = JSON.parse(localStorage.getItem("sb-api-auth-token"));
-
-//     if (!authData && to.path !== "/login") {
-//       return navigateTo("/login");
-//     }
-
-//     try {
-//       if (!authData?.user) {
-//         localStorage.removeItem("sb-api-auth-token");
-//         return navigateTo("/login");
-//       }
-//     } catch {
-//       localStorage.removeItem("sb-api-auth-token");
-//       return navigateTo("/login");
-//     }
-//   }
-// });

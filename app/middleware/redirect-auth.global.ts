@@ -9,14 +9,21 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
 
+  // Helper para decidir rota pelo role
+  const routeByRole = (role?: string) => (role === 'admin' ? '/dashboard' : '/cliente')
+
   // Já autenticado via estado reativo?
-  if (user.value) return navigateTo('/cliente')
+  if (user.value) {
+    const role = (user.value.user_metadata as any)?.role
+    return navigateTo(routeByRole(role))
+  }
 
   // Tenta hidratar sessão do Supabase
   try {
     const { data } = await supabase.auth.getSession()
     if (data.session) {
-      return navigateTo('/cliente')
+      const role = (data.session.user?.user_metadata as any)?.role
+      return navigateTo(routeByRole(role))
     }
   } catch {
     // ignora
@@ -28,7 +35,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
     try {
       const parsed = JSON.parse(raw)
       if (parsed?.access_token && parsed?.user) {
-        return navigateTo('/cliente')
+        const role = parsed.user?.user_metadata?.role
+        return navigateTo(routeByRole(role))
       }
     } catch {
       localStorage.removeItem('sb-api-auth-token')
