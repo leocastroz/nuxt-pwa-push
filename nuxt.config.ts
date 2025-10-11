@@ -102,7 +102,8 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+      // Evita warns no modo dev: só aplica globPatterns em produção
+      globPatterns: process.env.NODE_ENV === 'production' ? ['**/*.{js,css,html,png,svg,ico}'] : [],
       // Usar service worker personalizado
       importScripts: ['/sw-custom.js'],
       runtimeCaching: [
@@ -152,7 +153,9 @@ export default defineNuxtConfig({
     },
     devOptions: {
       enabled: true,
-      type: "module"
+      type: 'module',
+      // Limpa mais logs no dev
+      suppressWarnings: true
     }
   }
 })
