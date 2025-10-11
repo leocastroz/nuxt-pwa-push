@@ -41,8 +41,8 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     manifest: {
       id: '/?source=pwa',
-      name: 'Meu PWA App',
-      short_name: 'MeuApp',
+      name: 'To De Carona',
+      short_name: 'To De Carona',
       description: 'Aplicativo PWA criado com Nuxt.js e pronto para a Play Store!',
       start_url: '/',
       display: 'standalone',
