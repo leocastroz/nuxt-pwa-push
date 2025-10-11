@@ -2,13 +2,8 @@
 import { vMaska } from "maska/vue"
 // import CryptoJS from 'crypto-js'
 import { ref } from 'vue'
-import { createClient } from "@supabase/supabase-js";
-
-
-const supaStore = useSupabaseClient();
-const SUPABASE_URL = supaStore.supabaseUrl;
-const SUPABASE_KEY = supaStore.supabaseKey;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+// Use o client do Nuxt para manter sessão coesa
+const supabase = useSupabaseClient();
 const loading = ref(false);
 const cpf = ref('');
 const secretKey = 'C3tech203010@'
