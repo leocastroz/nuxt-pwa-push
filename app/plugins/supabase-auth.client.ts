@@ -42,4 +42,28 @@ export default defineNuxtPlugin(async () => {
       localStorage.removeItem('sb-api-auth-token')
     }
   })
+
+  // Sincroniza entre abas: quando o localStorage mudar em outra aba, reagimos
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'sb-api-auth-token') {
+        // Apenas força a leitura do estado atual de sessão
+        supabase.auth.getSession().catch(() => {})
+      }
+    })
+
+    // Opcional: BroadcastChannel para melhor sincronização
+    try {
+      const bc = new BroadcastChannel('sb-auth')
+      bc.onmessage = (msg) => {
+        if (msg?.data === 'refresh') {
+          supabase.auth.getSession().catch(() => {})
+        }
+      }
+      // Sempre que auth mudar, notifica outras abas
+      supabase.auth.onAuthStateChange(() => {
+        bc.postMessage('refresh')
+      })
+    } catch {}
+  }
 })

@@ -67,10 +67,7 @@
         <span>&#9729;</span>
         <span v-if="!isCollapsed">Opções</span>
       </NuxtLink> -->
-      <button @click="handleLogout" :disabled="isLoading">
-        <span v-if="!isLoading">Sair</span>
-        <span v-else>Saindo...</span>
-      </button>
+      <LogoutButton />
     </aside>
     <div class="sidebottom">
       <NuxtLink to="/dashboard" :class="{ active: isActive('/dashboard') }">
@@ -123,14 +120,7 @@
 
       <!-- Menu Mobile Condicional -->
       <div v-if="isMenuMobile" class="menu-mobile-slide">
-        <button
-          @click="handleLogout"
-          :disabled="isLoading"
-          class="menu-mobile-btn"
-        >
-          <span v-if="!isLoading">Sair</span>
-          <span v-else>Saindo...</span>
-        </button>
+        <LogoutButton />
 
         <!-- Futuramente, adicione aqui mais botões -->
       </div>
@@ -146,12 +136,9 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref } from "vue";
-import { createClient } from "@supabase/supabase-js";
+import LogoutButton from '~/components/LogoutButton.vue'
 
-const supaStore = useSupabaseClient();
-const SUPABASE_URL = supaStore.supabaseUrl;
-const SUPABASE_KEY = supaStore.supabaseKey;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = useSupabaseClient()
 
 const isMenuMobile = ref(false);
 const isCollapsed = ref(false);
@@ -226,18 +213,6 @@ const isActive = (path) => {
 };
 
 const isLoading = ref(false);
-
-const handleLogout = async () => {
-  console.log("Logout clicked");
-  isLoading.value = true;
-  try {
-    await supabase.auth.signOut();
-    localStorage.removeItem("sb-api-auth-token");
-    navigateTo("/login");
-  } finally {
-    isLoading.value = false;
-  }
-};
 </script>
 
 <style scoped>

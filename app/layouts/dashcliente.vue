@@ -104,10 +104,7 @@
         <span>&#9729;</span>
         <span v-if="!isCollapsed">Opções</span>
       </NuxtLink> -->
-      <button @click="handleLogout" :disabled="isLoading">
-        <span v-if="!isLoading">Sair</span>
-        <span v-else>Saindo...</span>
-      </button>
+      <LogoutButton />
     </aside>
 
     <aside :class="{ collapsed: isCollapsed }" class="sidebottom">
@@ -203,10 +200,7 @@
         <span>&#9729;</span>
         <span v-if="!isCollapsed">Opções</span>
       </NuxtLink> -->
-      <button @click="handleLogout" :disabled="isLoading">
-        <span v-if="!isLoading">Sair</span>
-        <span v-else>Saindo...</span>
-      </button>
+      <LogoutButton />
     </aside>
 
     <main :class="{ forceWidth: isCollapsed }">
@@ -245,12 +239,9 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref } from "vue";
-import { createClient } from "@supabase/supabase-js";
+import LogoutButton from '~/components/LogoutButton.vue'
 
-const supaStore = useSupabaseClient();
-const SUPABASE_URL = supaStore.supabaseUrl;
-const SUPABASE_KEY = supaStore.supabaseKey;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = useSupabaseClient();
 
 const isCollapsed = ref(false);
 const route = useRoute();
@@ -338,28 +329,6 @@ const isActive = (path) => {
 };
 
 const isLoading = ref(false);
-
-const handleLogout = async () => {
-  // console.log("Logout clicked");
-  isLoading.value = true;
-  try {
-    await supabase.auth.signOut();
-    localStorage.removeItem("sb-api-auth-token");
-    useToastify("Logout realizado com sucesso!", {
-      autoClose: 2000,
-      theme: "light",
-      type: "success",
-      position: ToastifyOption.POSITION.TOP_RIGHT,
-    });
-    setTimeout(() => {
-      // Redireciona para a página de login após o logout
-      navigateTo("/login");
-    }, 2000);
-    // navigateTo("/login");
-  } finally {
-    isLoading.value = false;
-  }
-};
 </script>
 
 <style scoped>
