@@ -338,7 +338,8 @@ const handleLogout = async () => {
     });
     setTimeout(() => {
       // Redireciona para a página de login após o logout
-      navigateTo("/login");
+      navigateTo("/");
+      // navigateTo("/login");
     }, 2000);
     // navigateTo("/login");
   } finally {

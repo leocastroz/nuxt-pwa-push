@@ -34,7 +34,7 @@ export const useAuthUser = () => {
           type: 'success',
         })
       } catch {}
-      await navigateTo('/login')
+      await navigateTo('/')
     }
   }
 
