@@ -211,7 +211,7 @@ onMounted(() => {
   onBeforeUnmount(() => clearInterval(id))
 })
 </script>
-
+<!-- 
 <style scoped>
 .pwa-settings {
   max-width: 600px;
@@ -394,4 +394,4 @@ onMounted(() => {
 .advanced-info strong {
   color: #333;
 }
-</style>
+</style> -->

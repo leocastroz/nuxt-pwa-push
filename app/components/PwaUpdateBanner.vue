@@ -123,7 +123,7 @@ const handleClose = () => {
   closeUpdate()
 }
 </script>
-
+<!-- 
 <style scoped>
 .pwa-update-banner {
   position: fixed;
@@ -314,4 +314,4 @@ const handleClose = () => {
     flex: 1;
   }
 }
-</style>
+</style> -->

@@ -134,10 +134,10 @@ function testToastify() {
           {{ loading ? 'Acessando...' : 'Acessar' }}
         </button>
         
-        <p class="toggle-text">
+        <!-- <p class="toggle-text">
           Login como cliente ? 
           <a href="#" @click.prevent="toggleForm">Acesso Cliente</a>
-        </p>
+        </p> -->
       </form>
       
       <!-- Formulário de Cadastro -->
@@ -170,7 +170,7 @@ function testToastify() {
     </div>
   </div>
 </template>
-
+<!-- 
 <style scoped>
 .auth-container {
   display: flex;
@@ -266,4 +266,4 @@ function testToastify() {
 .toggle-text a:hover {
   text-decoration: underline;
 }
-</style>
+</style> -->

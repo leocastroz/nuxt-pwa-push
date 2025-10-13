@@ -22,7 +22,7 @@ const onClick = async () => {
   }
 }
 </script>
-
+<!-- 
 <style scoped>
 .btn-logout {
   background: transparent;
@@ -36,4 +36,4 @@ const onClick = async () => {
   opacity: 0.6;
   cursor: not-allowed;
 }
-</style>
+</style> -->

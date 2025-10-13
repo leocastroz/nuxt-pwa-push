@@ -111,7 +111,7 @@ const goBack = () => {
   navigateTo('/')
 }
 </script>
-
+<!-- 
 <style scoped>
 .pwa-update-page {
   min-height: 100vh;
@@ -250,4 +250,4 @@ const goBack = () => {
     min-width: auto;
   }
 }
-</style>
+</style> -->

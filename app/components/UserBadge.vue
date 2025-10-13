@@ -17,7 +17,7 @@ const goProfile = () => {
   navigateTo('/perfilusuario')
 }
 </script>
-
+<!-- 
 <style scoped>
 .user-badge {
   display: flex;
@@ -51,4 +51,4 @@ const goProfile = () => {
   font-size: 12px;
   color: rgba(255,255,255,0.85);
 }
-</style>
+</style> -->

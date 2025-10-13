@@ -99,11 +99,7 @@ function testToastify() {
 
 <template>
   <div class="auth-container">
-    <div class="auth-card">
-      <div class="logo-container">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-J2M4IIsPAPbrwxntzNvO8BZKVArlAU.png" alt="Drogaria Popular do Pará" class="logo">
-      </div>
-      
+    <div>
       <!-- Formulário de Login -->
       <form v-if="isLoginForm" @submit.prevent="handleLogin" class="auth-form">
         <h2>Login</h2>
@@ -134,10 +130,10 @@ function testToastify() {
           {{ loading ? 'Acessando...' : 'Acessar' }}
         </button>
         
-        <p class="toggle-text">
+        <!-- <p class="toggle-text">
           Login como cliente ? 
           <a href="#" @click.prevent="toggleForm">Acesso Cliente</a>
-        </p>
+        </p> -->
       </form>
       
       <!-- Formulário de Cadastro -->
@@ -177,6 +173,27 @@ function testToastify() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
+  background-color: #fcfcfc;
+}
+
+.auth-card {
+  background-color: blue;
+}
+
+form {
+  background-color: gold;
+}
+
+</style>
+
+<!-- 
+<style scoped>
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   background-color: #bde764;
   padding: 20px;
 }
@@ -190,12 +207,7 @@ function testToastify() {
   overflow: hidden;
   padding: 30px;
 }
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-}
-
+  
 .logo {
   max-width: 200px;
   height: auto;
@@ -266,4 +278,4 @@ function testToastify() {
 .toggle-text a:hover {
   text-decoration: underline;
 }
-</style>
+</style> -->

@@ -105,7 +105,7 @@ onMounted(async () => {
   console.log('Mounted: Register Page');
 });
 </script>
-
+<!-- 
 <style scoped>
 .auth-container {
   display: flex;
@@ -201,4 +201,4 @@ onMounted(async () => {
 .toggle-text a:hover {
   text-decoration: underline;
 }
-</style>
+</style> -->

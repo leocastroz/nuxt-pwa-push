@@ -32,7 +32,7 @@ definePageMeta({
 
 const { profile } = useAuthUser()
 </script>
-
+<!-- 
 <style scoped>
 .profile-page {
   max-width: 900px;
@@ -66,4 +66,4 @@ const { profile } = useAuthUser()
 .actions {
   margin-top: 24px;
 }
-</style>
+</style> -->

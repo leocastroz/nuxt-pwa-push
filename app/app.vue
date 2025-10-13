@@ -14,7 +14,7 @@
     />
 
     <!-- PWA Install Banner -->
-     <h1>PWA Push Notification - Functioning</h1>
+    <!-- <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
     <div v-if="showInstallBanner" class="pwa-install-banner">
@@ -22,7 +22,7 @@
       <button @click="promptInstall">Adicionar à tela inicial</button>
       <button @click="subscribeUser">Ativar Push</button>
       <button @click="sendTest">Enviar Notificação</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -121,8 +121,25 @@ onMounted(() => {
   }
 });
 </script>
-
+<!-- 
 <style scoped>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background-color: red !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
 .pwa-install-banner {
   position: fixed;
   bottom: 200px;
@@ -202,5 +219,15 @@ onMounted(() => {
 
 .pwa-install-banner button:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+</style> -->
+
+<style>
+
+body {
+  background-color: red;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 </style>
