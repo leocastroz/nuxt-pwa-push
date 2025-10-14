@@ -239,7 +239,7 @@ const isLoading = ref(false);
 }
 
 .notications {
-  background-color: red;
+  /* background-color: red; */
   width: 35px;
   height: 35px;
   display: flex;
