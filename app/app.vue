@@ -225,7 +225,7 @@ body {
 <style>
 
 body {
-  background: linear-gradient(100deg, #49DEFF 0%, #0C4F65 100%);
+  background: linear-gradient(180deg, #49DEFF 0%, #0C4F65 100%);
   padding: 0;
   margin: 0;
   box-sizing: border-box;

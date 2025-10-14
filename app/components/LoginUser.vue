@@ -141,7 +141,7 @@ const togglePasswordVisibility = () => {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
-  background: linear-gradient(100deg, #49DEFF 0%, #0C4F65 100%);
+  background: linear-gradient(180deg, #49DEFF 0%, #0C4F65 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -312,7 +312,7 @@ const togglePasswordVisibility = () => {
   width: 100%;
   height: 56px;
   min-height: 56px;
-  background: linear-gradient(100deg, #49DEFF 0%, #0C4F65 100%);
+  background: linear-gradient(180deg, #49DEFF 0%, #0C4F65 100%);
   color: white;
   border: none;
   border-radius: 14px;
@@ -411,7 +411,7 @@ const togglePasswordVisibility = () => {
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .login-container {
-    background: linear-gradient(100deg, #49DEFF 0%, #0C4F65 100%);
+    background: linear-gradient(180deg, #49DEFF 0%, #0C4F65 100%);
   }
 }
 </style>
