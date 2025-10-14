@@ -48,13 +48,6 @@ const togglePasswordVisibility = () => {
   <div class="login-container">
     <div class="login-content">
       <div class="brand-section">
-        <!-- <div class="logo-circle">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 4L6 14V34L24 44L42 34V14L24 4Z" fill="white" fill-opacity="0.9"/>
-            <path d="M24 14L14 20V28L24 34L34 28V20L24 14Z" fill="currentColor"/>
-          </svg>
-        </div> -->
-        <img src="../assets/images/set-icon.svg" />
         <img class="logo-circle" src="../../public/icons/icon-96x96.png" width="50">
         <h1 class="brand-title">To De Carona</h1>
         <p class="brand-subtitle">Seu trajeto com conforto e segurança</p>
