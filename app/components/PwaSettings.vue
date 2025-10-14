@@ -129,6 +129,7 @@ const handleCheckUpdates = async () => {
       if (!updateAvailable.value) {
         useToastify('Você já está usando a versão mais recente!', {
           autoClose: 2000,
+          theme: "light",
           type: 'success',
           position: ToastifyOption.POSITION.TOP_CENTER,
         })

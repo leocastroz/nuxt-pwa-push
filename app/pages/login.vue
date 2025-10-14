@@ -92,6 +92,7 @@ const loginCliente = async () => {
 function testToastify() {
   useToastify("Login com sucesso !", {
     autoClose: 2000,
+    theme: "light",
     position: ToastifyOption.POSITION.TOP_RIGHT,
   });
 }

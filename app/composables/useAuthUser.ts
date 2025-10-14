@@ -30,6 +30,7 @@ export const useAuthUser = () => {
       try {
         useToastify('Logout realizado com sucesso!', {
           autoClose: 2000,
+          theme: "light",
           position: ToastifyOption.POSITION.TOP_RIGHT,
           type: 'success',
         })

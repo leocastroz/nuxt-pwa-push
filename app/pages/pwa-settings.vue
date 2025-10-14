@@ -83,6 +83,7 @@ const clearCache = async () => {
       
       useToastify('Cache limpo com sucesso! Recarregando...', {
         autoClose: 2000,
+        theme: "light",
         type: 'success',
         position: ToastifyOption.POSITION.TOP_CENTER,
       })
@@ -95,6 +96,7 @@ const clearCache = async () => {
       useToastify('Erro ao limpar cache', {
         autoClose: 2000,
         type: 'error',
+        theme: "light",
         position: ToastifyOption.POSITION.TOP_CENTER,
       })
     }
@@ -102,6 +104,7 @@ const clearCache = async () => {
     useToastify('Cache Storage não suportado', {
       autoClose: 2000,
       type: 'warning',
+      theme: "light",
       position: ToastifyOption.POSITION.TOP_CENTER,
     })
   }
