@@ -3,7 +3,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (process.server) return
 
   // Só age nas rotas públicas iniciais
-  const publicEntrypoints = ['/', '/login']
+  // const publicEntrypoints = ['/', '/login']
+  const publicEntrypoints = ['/', '/']
   if (!publicEntrypoints.includes(to.path)) return
 
   const supabase = useSupabaseClient()
