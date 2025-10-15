@@ -232,6 +232,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+input {
+  font-size: 16px !important;
+}
+
 .leaflet-routing-container {
   background-color: green !important;
   display: none !important;

@@ -592,9 +592,9 @@ onBeforeUnmount(() => {
   border-radius: 12px;
   border: none;
   outline: none;
-  background: rgba(255,255,255,0.95);
+  background: #F44336;
   box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-  font-size: 14px;
+  font-size: 16px;
 }
 .search-btn {
   width: 44px;
