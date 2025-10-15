@@ -343,14 +343,14 @@ const hideTopBar = computed(() => {
   height: 100vh;
   gap: 1.5rem;
   font-size: 1.1rem;
-  color: #333;
+  color: #ffff;
 }
 
 .spinner {
   width: 60px;
   height: 60px;
-  border: 6px solid #e0e0e0;
-  border-top: 6px solid #e30614;
+  border: 10px solid #ffffff;
+  border-top: 10px solid #10576d;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

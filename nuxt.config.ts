@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     'leaflet/dist/leaflet.css'
   ],
   // devServer: {
-  //   port: 3000,
+  //   port: 3006,
   //   host: '0.0.0.0'
   // },
   modules: [

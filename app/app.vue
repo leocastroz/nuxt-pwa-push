@@ -236,6 +236,10 @@ input {
   font-size: 16px !important;
 }
 
+.leaflet-container .leaflet-control-attribution {
+  display: none;
+}
+
 .leaflet-routing-container {
   background-color: green !important;
   display: none !important;

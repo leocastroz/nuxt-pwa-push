@@ -22,10 +22,17 @@
         @focus="onSearchFocus"
         @keyup.enter="handleSearchSubmit"
       />
-      <button class="btn search-btn" @click="handleSearchSubmit" :disabled="searchLoading" aria-label="Buscar">
+
+      <button v-if="searchQuery && searchQuery.length > 0" class="btn search-btn" @click="handleClearInput">
+        <span class="material-icons">clear</span>
+      </button>
+
+      <button v-else 
+        class="btn search-btn" @click="handleSearchSubmit" :disabled="searchLoading" aria-label="Buscar">
         <span class="material-icons" v-if="!searchLoading">search</span>
         <span class="material-icons spin" v-else>autorenew</span>
       </button>
+      
     </div>
 
     <div v-if="searchMessage" class="search-message">{{ searchMessage }}</div>
@@ -294,6 +301,22 @@ function startRealtimeLocation() {
 }
 
 // Sem confirmação de ponto: exibimos apenas a localização atual
+
+async function handleClearInput() {
+  searchQuery.value = ''
+  searchMessage.value = ''
+  showSuggestions.value = false
+  suggestions.value = []
+  if (searchMarker.value) {
+    map.value?.removeLayer(searchMarker.value)
+    searchMarker.value = null
+  }
+  if (routingControl.value) {
+    routingControl.value.remove()
+    routingControl.value = null
+  }
+  recenterToUser();
+}
 
 async function handleSearchSubmit() {
   if (!searchQuery.value || !map.value) return
@@ -592,7 +615,7 @@ onBeforeUnmount(() => {
   border-radius: 12px;
   border: none;
   outline: none;
-  background: #F44336;
+  background: #fffefd;
   box-shadow: 0 6px 18px rgba(0,0,0,0.18);
   font-size: 16px;
 }
