@@ -11,15 +11,15 @@
       </div>
       <NuxtLink to="/cliente" :class="{ active: isActive('/cliente') }">
         <span class="material-icons">home</span>
-        <span>Home</span>
+        <span>Viagens</span>
       </NuxtLink>
 
       <NuxtLink
         to="/premios-retirada"
         :class="{ active: isActive('/premios-retirada') }"
       >
-        <span class="material-icons">card_giftcard</span>
-        <span>Meus prêmios</span>
+        <span class="material-icons">map</span>
+        <span>Mapa</span>
       </NuxtLink>
 
       <NuxtLink
@@ -41,7 +41,7 @@
         to="/carteira-cliente"
         :class="{ active: isActive('/carteira-cliente') }"
       >
-        <span class="material-icons">wallet</span>
+        <span class="material-icons">map</span>
         <span>Carteira de pontos</span>
       </NuxtLink>
       <!-- <NuxtLink to="/cliente" :class="{ active: isActive('/cliente') }">
@@ -110,14 +110,15 @@
     <aside :class="{ collapsed: isCollapsed }" class="sidebottom">
       <NuxtLink to="/cliente" :class="{ active: isActive('/cliente') }">
         <span class="material-icons">home</span>
-        <span>Home</span>
+        <span>Viagens</span>
       </NuxtLink>
+      
       <NuxtLink
-        to="/premios-retirada"
-        :class="{ active: isActive('/premios-retirada') }"
+        to="/mapa-cliente"
+        :class="{ active: isActive('/mapa-cliente') }"
       >
-        <span class="material-icons">card_giftcard</span>
-        <span>Prêmios</span>
+        <span class="material-icons">map</span>
+        <span>Mapa</span>
       </NuxtLink>
       <!-- <NuxtLink
         to="/premios-roleta"
@@ -133,13 +134,17 @@
         <span class="material-icons">shopping_bag</span>
         <span>Catálogo</span>
       </NuxtLink> -->
+
       <NuxtLink
         to="/carteira-cliente"
-        :class="{ active: isActive('/carteira-cliente') }"
+        :class="{ active: isActive('/afiliado-cliente') }"
       >
-        <span class="material-icons">wallet</span>
-        <span>Carteira</span>
+        <span class="material-icons">people</span>
+        <span>Afiliado</span>
       </NuxtLink>
+
+    
+
       <!-- <NuxtLink to="/cliente" :class="{ active: isActive('/cliente') }">
         <img src="../assets/images/dashboard-icon.svg" />
         <span v-if="!isCollapsed">Dashboard cliente</span>
@@ -595,8 +600,6 @@ main::-webkit-scrollbar-thumb {
 
   .sidebottom a {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     text-decoration: none;
     gap: 5px;

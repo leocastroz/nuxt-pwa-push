@@ -1,6 +1,38 @@
 <template>
-  <div>
-    
+  <div class="map-page">
+    <!-- Full-bleed map container -->
+    <div ref="mapEl" class="map-view" />
+
+  <!-- Exibimos apenas sua localização em tempo real no mapa -->
+
+    <!-- Floating controls -->
+    <div class="floating-controls">
+      <button class="btn" @click="recenterToUser" aria-label="Centralizar localização">
+        <!-- <span class="mdi mdi-crosshairs-gps" /> -->
+        <span class="material-icons">my_location</span>
+      </button>
+    </div>
+
+    <!-- Bottom sheet (summary/action) -->
+    <div v-if="false" class="bottom-sheet" :class="{ open: sheetOpen }">
+      <div class="handle" @click="sheetOpen = !sheetOpen" />
+      <div class="sheet-content">
+        <h3>Sua localização no mapa</h3>
+        <p class="muted">Estamos exibindo sua posição em tempo real. Use o botão para centralizar a visão.</p>
+        <div class="coords">
+          <div>
+            <small>Latitude</small>
+            <strong>{{ userPosition ? userPosition.lat.toFixed(6) : '---' }}</strong>
+          </div>
+          <div>
+            <small>Longitude</small>
+            <strong>{{ userPosition ? userPosition.lng.toFixed(6) : '---' }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
