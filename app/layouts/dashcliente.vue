@@ -112,7 +112,7 @@
         <span class="material-icons">home</span>
         <span>Viagens</span>
       </NuxtLink>
-      
+
       <NuxtLink
         to="/mapa-cliente"
         :class="{ active: isActive('/mapa-cliente') }"
@@ -527,6 +527,7 @@ main::-webkit-scrollbar-thumb {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
+  z-index: 9999 !important;
 }
 
 .nav-sec img {
