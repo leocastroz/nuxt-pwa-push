@@ -14,33 +14,21 @@
         <span>Viagens</span>
       </NuxtLink>
 
-      <NuxtLink
-        to="/premios-retirada"
-        :class="{ active: isActive('/premios-retirada') }"
-      >
+      <NuxtLink to="/premios-retirada" :class="{ active: isActive('/premios-retirada') }">
         <span class="material-icons">map</span>
         <span>Mapa</span>
       </NuxtLink>
 
-      <NuxtLink
-        to="/premios-roleta"
-        :class="{ active: isActive('/premios-roleta') }"
-      >
+      <NuxtLink to="/premios-roleta" :class="{ active: isActive('/premios-roleta') }">
         <span class="material-icons">casino</span>
         <span>Roleta</span>
       </NuxtLink>
 
-      <NuxtLink
-        to="/catalogo-cliente"
-        :class="{ active: isActive('/catalogo-cliente') }"
-      >
+      <NuxtLink to="/catalogo-cliente" :class="{ active: isActive('/catalogo-cliente') }">
         <span class="material-icons">shopping_bag</span>
         <span>Catálogo</span>
       </NuxtLink>
-       <NuxtLink
-        to="/carteira-cliente"
-        :class="{ active: isActive('/carteira-cliente') }"
-      >
+      <NuxtLink to="/carteira-cliente" :class="{ active: isActive('/carteira-cliente') }">
         <span class="material-icons">map</span>
         <span>Carteira de pontos</span>
       </NuxtLink>
@@ -113,10 +101,7 @@
         <span>Viagens</span>
       </NuxtLink>
 
-      <NuxtLink
-        to="/mapa-cliente"
-        :class="{ active: isActive('/mapa-cliente') }"
-      >
+      <NuxtLink to="/mapa-cliente" :class="{ active: isActive('/mapa-cliente') }">
         <span class="material-icons">map</span>
         <span>Mapa</span>
       </NuxtLink>
@@ -135,15 +120,12 @@
         <span>Catálogo</span>
       </NuxtLink> -->
 
-      <NuxtLink
-        to="/carteira-cliente"
-        :class="{ active: isActive('/afiliado-cliente') }"
-      >
+      <NuxtLink to="/carteira-cliente" :class="{ active: isActive('/afiliado-cliente') }">
         <span class="material-icons">people</span>
         <span>Afiliado</span>
       </NuxtLink>
 
-    
+
 
       <!-- <NuxtLink to="/cliente" :class="{ active: isActive('/cliente') }">
         <img src="../assets/images/dashboard-icon.svg" />
@@ -208,8 +190,8 @@
       <!-- <LogoutButton /> -->
     </aside>
 
-    <main :class="{ forceWidth: isCollapsed }">
-      <div class="nav-sec">
+    <main v-if="!hideTopBar" :class="{ forceWidth: isCollapsed }">
+      <div class="nav-sec" >
         <div v-if="false" class="btn-menu">
           <div @click="toggleMenu">
             <img v-if="isCollapsed" src="../assets/images/set-icon.svg" />
@@ -225,6 +207,16 @@
       </div>
       <slot />
     </main>
+
+    <main v-else style="padding:  0 !important;">
+       <NuxtLink to="/cliente" class="return-icon">
+        &#10094;
+      </NuxtLink>
+
+      
+      <slot />
+    </main>
+
   </div>
   <div v-else class="loading-auth">
     <div class="spinner"></div>
@@ -234,7 +226,7 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import LogoutButton from '~/components/LogoutButton.vue'
 import UserBadge from '~/components/UserBadge.vue'
 
@@ -326,6 +318,12 @@ const isActive = (path) => {
 };
 
 const isLoading = ref(false);
+
+// Esconder a barra superior quando estiver na rota do mapa do cliente
+// Também suporta um meta por página: definePageMeta({ hideTopBar: true })
+const hideTopBar = computed(() => {
+  return route.meta?.hideTopBar === true || route.path.startsWith('/mapa-cliente')
+})
 </script>
 
 <style scoped>
@@ -349,10 +347,29 @@ const isLoading = ref(false);
   animation: spin 1s linear infinite;
 }
 
+.return-icon {
+  position: absolute !important;
+  top: 30px;
+  right: 30px;
+  z-index: 999;
+  text-decoration: none;
+  background: rgb(106 106 106);
+  width: 50px;
+  height: 50px;
+  display: flex;  ;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0px 0px 30px #aeaeae;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -654,8 +671,10 @@ main::-webkit-scrollbar-thumb {
   }
 
   main {
-    padding-top: 80px; /* Altura do .nav-sec */
-    padding-bottom: 80px; /* Altura do .sidebottom */
+    padding-top: 80px;
+    /* Altura do .nav-sec */
+    padding-bottom: 80px;
+    /* Altura do .sidebottom */
     margin-bottom: 0;
     height: auto;
   }
