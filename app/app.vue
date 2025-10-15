@@ -232,7 +232,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.leaflet-container .leaflet-control-attribution {
-  display: none;
+.leaflet-routing-container {
+  background-color: green !important;
+  display: none !important;
+  pointer-events: none !important;
 }
 </style>
