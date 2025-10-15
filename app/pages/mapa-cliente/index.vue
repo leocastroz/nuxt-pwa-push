@@ -204,7 +204,7 @@ onBeforeUnmount(() => {
 .map-page {
   position: relative;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 155px);
   overflow: hidden;
 }
 .map-view {
@@ -250,8 +250,8 @@ onBeforeUnmount(() => {
 /* Floating controls on map */
 .floating-controls {
   position: absolute;
-  right: 12px;
-  bottom: 180px;
+  right: 10px;
+  top: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
