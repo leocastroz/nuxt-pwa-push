@@ -651,7 +651,7 @@ main::-webkit-scrollbar-thumb {
     width: 100%;
     height: 80px;
     padding: 12px 20px;
-    background: #30369d;
+    background: #49DEFF;
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
   }
 

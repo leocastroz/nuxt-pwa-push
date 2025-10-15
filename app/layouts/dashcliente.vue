@@ -119,20 +119,20 @@
         <span class="material-icons">card_giftcard</span>
         <span>Prêmios</span>
       </NuxtLink>
-      <NuxtLink
+      <!-- <NuxtLink
         to="/premios-roleta"
         :class="{ active: isActive('/premios-roleta') }"
       >
         <span class="material-icons">casino</span>
         <span>Roleta</span>
-      </NuxtLink>
-      <NuxtLink
+      </NuxtLink> -->
+      <!-- <NuxtLink
         to="/catalogo-cliente"
         :class="{ active: isActive('/catalogo-cliente') }"
       >
         <span class="material-icons">shopping_bag</span>
         <span>Catálogo</span>
-      </NuxtLink>
+      </NuxtLink> -->
       <NuxtLink
         to="/carteira-cliente"
         :class="{ active: isActive('/carteira-cliente') }"
@@ -200,7 +200,7 @@
         <span>&#9729;</span>
         <span v-if="!isCollapsed">Opções</span>
       </NuxtLink> -->
-      <LogoutButton />
+      <!-- <LogoutButton /> -->
     </aside>
 
     <main :class="{ forceWidth: isCollapsed }">
@@ -513,7 +513,7 @@ main::-webkit-scrollbar-thumb {
 
 .nav-sec {
   background-color: #30369d;
-  padding: 15px 30px;
+  /* padding: 15px 30px; */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
@@ -658,14 +658,14 @@ main::-webkit-scrollbar-thumb {
 
   .nav-sec {
     position: fixed;
-    top: -2px;
+    /* top: -2px; */
     bottom: 0;
     left: 0;
     color: #fff;
     width: 100%;
     height: 80px;
-    padding: 12px 20px;
-    background: #30369d;
+    /* padding: 12px 20px; */
+    background: #49DEFF;
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
   }
 }

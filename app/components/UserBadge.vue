@@ -1,9 +1,11 @@
 <template>
   <div class="user-badge" @click="goProfile" role="button" :aria-label="`Perfil de ${profile.name}`">
-    <img :src="profile.avatarUrl" :alt="profile.name" class="avatar" />
+    
     <div class="info">
-      <span class="name">{{ profile.name }}</span>
-      <span v-if="profile.email" class="email">{{ profile.email }}</span>
+      <img :src="profile.avatarUrl" :alt="profile.name" width="50" />
+      <img :src="profile.avatarUrl" :alt="profile.name" width="50" />
+      <!-- <span class="name">{{ profile.name }}</span>
+      <span v-if="profile.email" class="email">{{ profile.email }}</span> -->
     </div>
   </div>
 </template>
@@ -52,3 +54,11 @@ const goProfile = () => {
   color: rgba(255,255,255,0.85);
 }
 </style> -->
+
+
+<style scoped>
+.info {
+  display: flex;
+  gap: 20px;
+}
+</style>

@@ -10,21 +10,23 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/supabase": "^1.4.6",
     "@nuxt/image": "^1.11.0",
     "@nuxt/ui": "^4.0.0",
+    "@nuxtjs/supabase": "^1.4.6",
+    "crypto-js": "^4.2.0",
+    "leaflet": "^1.9.4",
+    "maska": "^3.1.1",
     "nuxt": "^4.1.2",
+    "nuxt-material-design-icons-iconfont": "^1.0.2",
+    "nuxt-toastify": "^1.0.0",
     "typescript": "^5.9.2",
+    "uuid": "^11.1.0",
     "vue": "^3.5.21",
     "vue-router": "^4.5.1",
-    "web-push": "^3.6.7",
-    "crypto-js": "^4.2.0",
-    "uuid": "^11.1.0",
-    "maska": "^3.1.1",
-    "nuxt-material-design-icons-iconfont": "^1.0.2",
-    "nuxt-toastify": "^1.0.0"
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^24.5.2",
     "@types/web-push": "^3.6.4",
     "@vite-pwa/nuxt": "^0.10.6"
