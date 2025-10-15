@@ -120,7 +120,7 @@
         <span>Catálogo</span>
       </NuxtLink> -->
 
-      <NuxtLink to="/carteira-cliente" :class="{ active: isActive('/afiliado-cliente') }">
+      <NuxtLink to="/afiliado-cliente" :class="{ active: isActive('/afiliado-cliente') }">
         <span class="material-icons">people</span>
         <span>Afiliado</span>
       </NuxtLink>
@@ -208,11 +208,19 @@
       <slot />
     </main>
 
-    <main v-else style="padding:  0 !important;">
-       <NuxtLink to="/cliente" class="return-icon">
-        &#10094;
-      </NuxtLink>
-
+    <main v-else style="padding:  0 !important;background-color: #49deff !important;">
+      <div style="display: flex;align-items: center;justify-content: space-between; padding: 10px;">
+        <NuxtLink to="/cliente" class="return-icon">
+          &#10094;
+        </NuxtLink>
+        <div style="display: flex; align-items: center; gap: 5px;">
+          <p style="color: #18485d; font-size: 16px;text-transform: capitalize;font-size: 16px;">
+            Rua Daniela Perez, 230
+          </p>
+           <span class="material-icons">location_on</span>
+        </div>
+      </div>
+      
       
       <slot />
     </main>
@@ -348,21 +356,17 @@ const hideTopBar = computed(() => {
 }
 
 .return-icon {
-  position: absolute !important;
-  top: 30px;
-  right: 30px;
   z-index: 999;
   text-decoration: none;
-  background: rgb(106 106 106);
-  width: 50px;
-  height: 50px;
+  background-color: #2b8cb7;
+  width: 40px;
+  height: 40px;
   display: flex;  ;
   align-items: center;
   justify-content: center;
   border-radius: 100%;
   color: white;
-  font-size: 20px;
-  box-shadow: 0px 0px 30px #aeaeae;
+  font-size: 15px;
 }
 
 @keyframes spin {
@@ -403,9 +407,9 @@ const hideTopBar = computed(() => {
   transition: background-color 0.2s;
 }
 
-.btn-menu:hover {
+/* .btn-menu:hover {
   background-color: #e0e0e0;
-}
+} */
 
 .sidebottom {
   display: none;
@@ -436,11 +440,11 @@ const hideTopBar = computed(() => {
   transition: all 0.2s ease-in-out;
 }
 
-.sidebar a:hover {
+/* .sidebar a:hover {
   background-color: #f0f0f0;
   color: #e30614;
   transform: translateX(5px);
-}
+} */
 
 .sidebar a .material-icons {
   font-size: 24px;
@@ -496,10 +500,10 @@ const hideTopBar = computed(() => {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-.sidebar button:hover:not(:disabled) {
+/* .sidebar button:hover:not(:disabled) {
   background-color: #24298a;
   transform: translateY(-2px);
-}
+} */
 
 .sidebar button:disabled {
   background-color: #a0a0a0;
@@ -567,9 +571,9 @@ main::-webkit-scrollbar-thumb {
   transition: color 0.2s ease-in-out;
 }
 
-.nav-sec .perfil a:hover {
+/* .nav-sec .perfil a:hover {
   color: #e30614;
-}
+} */
 
 .nav-sec .perfil .logo {
   border-radius: 50%;
@@ -580,13 +584,13 @@ main::-webkit-scrollbar-thumb {
   height: 40px;
 }
 
-.nav-sec .perfil .logo:hover {
+/* .nav-sec .perfil .logo:hover {
   transform: scale(1.05);
-}
-
+} */
+/* 
 .nav-sec .logo:hover {
   transform: scale(1.05);
-}
+} */
 
 .active {
   background-color: #f0f0f0;
@@ -637,10 +641,10 @@ main::-webkit-scrollbar-thumb {
     color: #333;
   }
 
-  .sidebottom a:hover {
+  /* .sidebottom a:hover {
     background-color: rgba(255, 255, 255, 0.15);
     transform: translateY(-3px);
-  }
+  } */
 
   .sidebottom .active {
     background-color: #e30614;
