@@ -1,29 +1,54 @@
 <template>
   <div>
+    <section style="padding: 12px 16px;">
+      <h3>Minha localização (store global)</h3>
+      <p style="margin: 6px 0;">
+        Permissão: <strong>{{ permission }}</strong>
+      </p>
+      <p v-if="coords">
+        Lat: <strong>{{ coords.lat.toFixed(6) }}</strong> · Lng: <strong>{{ coords.lng.toFixed(6) }}</strong>
+        <span v-if="coords.accuracy"> · Precisão: {{ Math.round(coords.accuracy) }}m</span>
+      </p>
+      <p v-else style="color:#6b7280;">Sem localização ainda…</p>
+      <p v-if="address" style="margin-top: 4px; color:#374151;">Endereço: {{ address }}</p>
 
-    
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <button class="btn" @click="startWatch()">Ativar localização</button>
+        <button class="btn" @click="stopWatch()">Parar</button>
+        <button class="btn" @click="refreshOnce()">Atualizar uma vez</button>
+      </div>
+    </section>
 
-    <div style="background-color: red;padding: 20px;margin: 40px 20px;">
+    <div style="background-color: #fee2e2;padding: 20px;margin: 16px; border-radius: 10px;">
       Transporte personalizado (Viagem)
     </div>
 
-    <div style="background-color: red;padding: 20px;margin: 40px 20px;">
+    <div style="background-color: #fee2e2;padding: 20px;margin: 16px; border-radius: 10px;">
       Transporte personalizado (Entregas)
     </div>
 
-
-    <div style="background-color: red;padding: 20px;margin: 40px 20px;">
+    <div style="background-color: #fee2e2;padding: 20px;margin: 16px; border-radius: 10px;">
       Minhas Corridas realizadas
     </div>
-
   </div>
+  
 </template>
 
 <script setup lang="ts">
+import { onMounted, onBeforeUnmount } from 'vue'
+const { coords, address, permission, startWatch, stopWatch, refreshOnce } = useUserLocation();
 definePageMeta({
   middleware: ['auth'],
   layout: 'dashcliente',
   ssr: false
+})
+
+onMounted(() => {
+  startWatch()
+})
+
+onBeforeUnmount(() => {
+  stopWatch()
 })
 
 </script>
