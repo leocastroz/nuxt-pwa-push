@@ -14,16 +14,21 @@
     /> -->
 
     <!-- PWA Install Banner -->
-    <h1>PWA Push Notification - Functioning</h1>
+    <!-- <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
-    <pre>teste - {{ showInstallBanner }}</pre>
-    <div v-if="showInstallBanner" class="pwa-install-banner">
+    <pre>teste - {{ showInstallBanner }}</pre> -->
+
+    <div v-if="false" class="pwa-install-banner">
       <p>Você pode adicionar este app à tela inicial!</p>
       <button @click="promptInstall">Adicionar à tela inicial</button>
-      <!-- <button @click="subscribeUser">Ativar Push</button>
-      <button @click="sendTest">Enviar Notificação</button> -->
     </div>
+
+
+    <!-- <div v-if="showInstallBanner" class="pwa-install-banner">
+      <p>Você pode adicionar este app à tela inicial!</p>
+      <button @click="promptInstall">Adicionar à tela inicial</button>
+    </div> -->
   </div>
 </template>
 
@@ -122,109 +127,7 @@ onMounted(() => {
   }
 });
 </script>
-<!-- 
-<style scoped>
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-body {
-  background-color: red !important;
-  box-sizing: border-box;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-
-.pwa-install-banner {
-  position: fixed;
-  bottom: 200px;
-  left: 20px;
-  right: 20px;
-  background: #4CAF50;
-  color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  text-align: center;
-}
-
-.pwa-install-banner p {
-  margin: 0 0 1rem 0;
-  font-weight: 500;
-}
-
-.pwa-install-banner button {
-  background: white;
-  color: #4CAF50;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  margin: 0 0.5rem;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.pwa-install-banner button:hover {
-  background: #f0f0f0;
-}
-
-@media (max-width: 768px) {
-  .pwa-install-banner {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-  }
-}
-</style>
-
 <style>
-.pwa-install-banner {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  background: #667eea;
-  color: white;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  z-index: 1000;
-}
-
-.pwa-install-banner p {
-  margin: 0;
-  flex: 1;
-  font-size: 0.9rem;
-}
-
-.pwa-install-banner button {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: background 0.3s;
-}
-
-.pwa-install-banner button:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-</style> -->
-
-<style>
-
 body {
   background: linear-gradient(180deg, #49DEFF 0%, #0C4F65 100%);
   padding: 0;
