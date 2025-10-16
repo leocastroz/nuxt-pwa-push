@@ -8,12 +8,18 @@ const supabase = useSupabaseClient()
 const router = useRouter();
 const loading = ref(false);
 const numeroTelefone = ref('');
+const changeModal = ref('login'); // 'login', 'register', 'forget'
 const showPassword = ref(false);
 const cleanNumero = (numeroTelefone) => numeroTelefone.replace(/\D/g, '');
 const loginForm = ref({
   email: '',
   password: ''
 })
+
+
+const handleChange = async (event) => {
+    changeModal.value = event
+}
 
 const handleLogin = async () => {
   loading.value = true;
@@ -53,7 +59,7 @@ const togglePasswordVisibility = () => {
         <p class="brand-subtitle">Seu trajeto com conforto e segurança</p>
       </div>
 
-      <form @submit.prevent="handleLogin" class="login-form">
+      <form v-if="changeModal === 'login'" @submit.prevent="handleLogin" class="login-form">
         <div class="form-group">
           <label for="phone-number" class="form-label">Número de telefone</label>
           <div class="input-wrapper">
@@ -105,12 +111,19 @@ const togglePasswordVisibility = () => {
           </div>
         </div>
 
-        <button type="button" class="forgot-password">
-          Esqueceu sua senha?
-        </button>
+        <div style="display: flex;align-items: center;justify-content: space-between;">
+          <button type="button" class="forgot-password" @click="handleChange('forget')">
+            Esqueceu sua senha?
+          </button>
+
+          <button type="button" class="forgot-password" @click="handleChange('register')">
+            Cadastrar agora &#10095;
+          </button>
+        </div>
+       
         
         <button type="submit" class="btn-primary" :disabled="loading">
-          <span v-if="!loading">Entrar</span>
+          <span v-if="!loading">Entrar &#10095;</span>
           <span v-else class="loading-spinner">
             <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="50.265" stroke-dashoffset="12.566"/>
@@ -119,6 +132,80 @@ const togglePasswordVisibility = () => {
           </span>
         </button>
       </form>
+
+
+      <form v-if="changeModal === 'register'" @submit.prevent="handleLogin" class="login-form">
+        <div class="form-group">
+          <label for="phone-number" class="form-label">Informe o número para resgaste</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z" fill="currentColor"/>
+            </svg>
+            <input 
+              id="phone-number" 
+              type="tel" 
+              v-model="numeroTelefone" 
+              placeholder="(94) 9 9999-9999" 
+              v-maska="'(##) # ####-####'"
+              maxlength="16"
+              autocomplete="tel"
+              class="form-input"
+              required
+            >
+          </div>
+        </div>
+
+        <button type="button" class="forgot-password" @click="handleChange('login')">
+          &#10094; Realizar login
+        </button>
+        
+        <button type="submit" class="btn-primary" :disabled="loading">
+          <span v-if="!loading">Cadastrar &#10095;</span>
+          <span v-else class="loading-spinner">
+            <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="50.265" stroke-dashoffset="12.566"/>
+            </svg>
+            Enviando...
+          </span>
+        </button>
+      </form>
+
+      <form v-if="changeModal === 'forget'" @submit.prevent="handleLogin" class="login-form">
+        <div class="form-group">
+          <label for="phone-number" class="form-label">Informe o número para resgaste</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z" fill="currentColor"/>
+            </svg>
+            <input 
+              id="phone-number" 
+              type="tel" 
+              v-model="numeroTelefone" 
+              placeholder="(94) 9 9999-9999" 
+              v-maska="'(##) # ####-####'"
+              maxlength="16"
+              autocomplete="tel"
+              class="form-input"
+              required
+            >
+          </div>
+        </div>
+
+        <button type="button" class="forgot-password" @click="handleChange('login')">
+          &#10094; Realizar login
+        </button>
+        
+        <button type="submit" class="btn-primary" :disabled="loading">
+          <span v-if="!loading">Restaurar &#10095;</span>
+          <span v-else class="loading-spinner">
+            <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="50.265" stroke-dashoffset="12.566"/>
+            </svg>
+            Enviando...
+          </span>
+        </button>
+      </form>
+        
 
         
       <!-- <div class="footer-section">
