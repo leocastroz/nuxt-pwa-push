@@ -14,15 +14,16 @@
     /> -->
 
     <!-- PWA Install Banner -->
-    <!-- <h1>PWA Push Notification - Functioning</h1>
+    <h1>PWA Push Notification - Functioning</h1>
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
-    <div v-if="showInstallBanner" class="pwa-install-banner">
+    <pre>teste - {{ showInstallBanner }}</pre>
+    <div class="pwa-install-banner">
       <p>Você pode adicionar este app à tela inicial!</p>
       <button @click="promptInstall">Adicionar à tela inicial</button>
-      <button @click="subscribeUser">Ativar Push</button>
-      <button @click="sendTest">Enviar Notificação</button>
-    </div> -->
+      <!-- <button @click="subscribeUser">Ativar Push</button>
+      <button @click="sendTest">Enviar Notificação</button> -->
+    </div>
   </div>
 </template>
 
