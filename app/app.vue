@@ -18,7 +18,7 @@
     <button @click="subscribeUser">Ativar Push</button>
     <button @click="sendTest">Enviar Notificação</button>
     <pre>teste - {{ showInstallBanner }}</pre>
-    <div class="pwa-install-banner">
+    <div v-if="showInstallBanner" class="pwa-install-banner">
       <p>Você pode adicionar este app à tela inicial!</p>
       <button @click="promptInstall">Adicionar à tela inicial</button>
       <!-- <button @click="subscribeUser">Ativar Push</button>
